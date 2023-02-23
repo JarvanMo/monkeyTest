@@ -29,13 +29,10 @@ def reboot(dev):
 
 def getModel( devices):
     result = {}
-    cmd = "adb -s " + devices + " shell cat /system/build.prop"
-    print(cmd)
     # output = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout.readlines()
-    output = subprocess.check_output(cmd).decode()
-    result["release"] = re.findall("version.release=(\d\.\d)*", output, re.S)[0] #  Android 系统，如anroid 4.0
-    result["phone_name"] = re.findall("ro.product.model=(\S+)*", output, re.S)[0] # 手机名
-    result["phone_model"] = re.findall("ro.product.brand=(\S+)*", output, re.S)[0] # 手机品牌
+    result["release"] = subprocess.check_output("adb shell getprop ro.build.version.release").decode() #  Android 系统，如anroid 4.0
+    result["phone_name"] = subprocess.check_output("adb shell getprop ro.product.model").decode() # 手机名
+    result["phone_model"] = subprocess.check_output("adb shell getprop ro.product.brand").decode() # 手机品牌
     return result
 
 
