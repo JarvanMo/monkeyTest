@@ -227,7 +227,7 @@ def processCpuTime(pid, devices):
 def get_cpu_kel(devices):
     cmd = "adb -s " + devices + " shell cat /proc/cpuinfo"
     print(cmd)
-    output = subprocess.check_output(cmd).split()
+    output = subprocess.check_output(["adb","-s",devices,"shell","cat","/proc/cpuinfo"]).split()
     sitem = ".".join([x.decode() for x in output])  # 转换为string
     return len(re.findall("processor", sitem))
 

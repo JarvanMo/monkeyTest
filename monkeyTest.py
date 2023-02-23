@@ -148,7 +148,7 @@ def killport():
     os.popen("adb kill-server adb")
     os.popen("adb start-server")
 if __name__ == '__main__':
-    killport()
+    # killport()
     time.sleep(1)
     runnerPool()
  
